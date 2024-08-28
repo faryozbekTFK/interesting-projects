@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+input:focus {
+  outline: none;
+  border: 2px solid red;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.simple-keyboard {
+  background: #0e172e;
+}
+.simple-keyboard .hg-button {
+  background: #344265;
+  color: #fff;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.simple-keyboard.hg-layout-tel .hg-button {
+  width: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.simple-keyboard.hg-layout-numeric .hg-button {
+  height: 40px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.simple-keyboard.hg-layout-default .hg-button-close {
+  flex-grow: 0.08;
+}
+
+.simple-keyboard .hg-button:active {
+  background: #fff;
+  color: black;
+}
+
+.g6-contextmenu {
+  box-shadow: none !important;
+  background: none !important;
+}
+
+.context-menu-container {
+  width: 120px;
+  height: 120px;
+  /* background: red; */
+  border-radius: 100%;
+  position: relative;
+
+  background: rgb(6, 6, 89);
+  background: radial-gradient(circle, #00000000 20%, #000000 20%, #000000 100%);
 }
