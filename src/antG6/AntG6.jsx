@@ -46,35 +46,20 @@ function AntG6() {
           type: "contextmenu",
           trigger: "contextmenu",
           enable: (e) => e.targetType === "node",
-          //   getItems: (e) => {
-          //     return [
-          //       { name: "Label 1", value: "label1" },
-          //       { name: "Label 1", value: "label1" },
-          //     ];
-          //   },
           getContent: (props) => {
             const { x, y } = props.target.attributes;
-
-            // console.log({
-            //   props,
-            //   canvas: props.canvas,
-            //   client: props.client,
-            //   offset: props.offset,
-            //   global: props.global,
-            //   layer: props.layer,
-            //   movement: props.movement,
-            //   page: props.page,
-            //   screen: props.screen,
-            //   viewport: props.viewport,
-            //   target: {
-            //     attributes: props.target.attributes,
-            //     parsedStyle: props.target.parsedStyle,
-            //     transformable: props.target.transformable.localPosition,
-            //   },
-            // });
-
             props.client = { x: x - 64, y: y - 64 };
-            const content = `<div  class='context-menu-container'></div>`;
+
+            const content = `<div class='context-menu-container'>
+            <div id="menu-1" class='menu menu-1'>menu 1</div>
+            </div>`;
+
+            const menu1 = document.getElementById("menu-1");
+            console.log(menu1);
+
+            menu1?.addEventListener("click", () => {
+              console.log("click menu-1");
+            });
 
             return content;
           },

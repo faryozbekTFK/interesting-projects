@@ -45,7 +45,19 @@ input:focus {
   /* background: red; */
   border-radius: 100%;
   position: relative;
-
   background: rgb(6, 6, 89);
   background: radial-gradient(circle, #00000000 20%, #000000 20%, #000000 100%);
+}
+
+.context-menu-container .menu {
+  width: 43px;
+  height: 43px;
+  background: red;
+}
+
+.context-menu-container .menu-1 {
+  position: absolute;
+  top: 0;
+  left: calc(120px / 2 - 43px);
+  clip-path: polygon(100% 0%, 20% 20%, 100% 100%);
 }
