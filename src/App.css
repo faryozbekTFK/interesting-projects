@@ -39,10 +39,9 @@ input:focus {
   background: none !important;
 }
 
-.context-menu-container {
+/* .context-menu-container {
   width: 120px;
   height: 120px;
-  /* background: red; */
   border-radius: 100%;
   position: relative;
   background: rgb(6, 6, 89);
@@ -60,4 +59,160 @@ input:focus {
   top: 0;
   left: calc(120px / 2 - 43px);
   clip-path: polygon(100% 0%, 20% 20%, 100% 100%);
+} */
+
+/* .menu-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+} */
+
+.circular-menu {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: relative;
+  background: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  user-select: none;
 }
+
+.menu-item {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+  font-size: 9px;
+  cursor: pointer;
+  /* background: red; */
+  border-radius: 100%;
+}
+.menu-item:hover {
+  color: aqua;
+}
+
+.center-content {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/* Positioning of the menu items */
+.menu-item.analytics {
+  top: 0;
+  right: 50%;
+}
+.menu-item.prediction {
+  top: 0;
+  left: 50%;
+}
+.menu-item.relations {
+  right: 0;
+  bottom: 45%;
+}
+.menu-item.same-type {
+  right: 0;
+  top: 45%;
+}
+.menu-item.around {
+  bottom: 0;
+  left: 50%;
+}
+.menu-item.profile {
+  bottom: 0;
+  right: 50%;
+}
+.menu-item.media {
+  left: 0;
+  bottom: 45%;
+}
+.menu-item.osint {
+  left: 0;
+  top: 45%;
+}
+
+/* chat yozib bergan stil */
+
+/* 
+.menu-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.circular-menu {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  position: relative;
+  background: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.center-content {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.menu-item.analytics { top: 0; left: 50%; transform: translate(-50%, -50%); }
+.menu-item.prediction { top: 15%; right: 0; transform: translate(50%, -50%); }
+.menu-item.relations { bottom: 15%; right: 0; transform: translate(50%, 50%); }
+.menu-item.same-type { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
+.menu-item.around { bottom: 15%; left: 0; transform: translate(-50%, 50%); }
+.menu-item.profile { top: 15%; left: 0; transform: translate(-50%, -50%); }
+.menu-item.media { bottom: 50%; left: 50%; transform: translate(-50%, 50%); }
+.menu-item.osint { top: 50%; left: 50%; transform: translate(-50%, -50%); } */

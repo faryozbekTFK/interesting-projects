@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@antv/g6": "^5.0.17",
+    "@antv/g6-extension-react": "^0.1.5",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.18",
