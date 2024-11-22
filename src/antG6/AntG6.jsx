@@ -4,6 +4,8 @@ import { createPortal } from "react-dom";
 import { ExtensionCategory, Graph, register } from "@antv/g6";
 import { ReactNode } from "@antv/g6-extension-react";
 import rasm from "./TF 3x4 rasm.jpg";
+import { range } from "lodash";
+import { v4 } from "uuid";
 
 const ContextMenu = ({ x, y, nodeData, onClose }) => {
   const [visible, setVisible] = useState(true);
@@ -46,14 +48,54 @@ const ContextMenu = ({ x, y, nodeData, onClose }) => {
       <div className="menu-container">
         {visible && (
           <div className="circular-menu">
-            <div onClick={(e) => console.log(e.target.textContent)} className="menu-item analytics">Analytics</div>
-            <div onClick={(e) => console.log(e.target.textContent)} className="menu-item prediction">Prediction</div>
-            <div onClick={(e) => console.log(e.target.textContent)} className="menu-item relations">Relations</div>
-            <div onClick={(e) => console.log(e.target.textContent)} className="menu-item same-type">Same Type</div>
-            <div onClick={(e) => console.log(e.target.textContent)} className="menu-item around">Around</div>
-            <div onClick={(e) => console.log(e.target.textContent)} className="menu-item profile">Profile</div>
-            <div onClick={(e) => console.log(e.target.textContent)} className="menu-item media">Media</div>
-            <div onClick={(e) => console.log(e.target.textContent)} className="menu-item osint">Osint</div>
+            <div
+              onClick={(e) => console.log(e.target.textContent)}
+              className="menu-item analytics"
+            >
+              Analytics
+            </div>
+            <div
+              onClick={(e) => console.log(e.target.textContent)}
+              className="menu-item prediction"
+            >
+              Prediction
+            </div>
+            <div
+              onClick={(e) => console.log(e.target.textContent)}
+              className="menu-item relations"
+            >
+              Relations
+            </div>
+            <div
+              onClick={(e) => console.log(e.target.textContent)}
+              className="menu-item same-type"
+            >
+              Same Type
+            </div>
+            <div
+              onClick={(e) => console.log(e.target.textContent)}
+              className="menu-item around"
+            >
+              Around
+            </div>
+            <div
+              onClick={(e) => console.log(e.target.textContent)}
+              className="menu-item profile"
+            >
+              Profile
+            </div>
+            <div
+              onClick={(e) => console.log(e.target.textContent)}
+              className="menu-item media"
+            >
+              Media
+            </div>
+            <div
+              onClick={(e) => console.log(e.target.textContent)}
+              className="menu-item osint"
+            >
+              Osint
+            </div>
             <div className="center-content">
               <img
                 src={nodeData?.data?.img}
@@ -122,16 +164,17 @@ const CustomNode = ({ data, size }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          background: "red",
         }}
       >
-        <img
+        {/* <img
           src={rasm} // Use the imported local image
           alt="User"
           style={{
             width: "100%",
             height: "auto",
           }}
-        />
+        /> */}
         <div
           style={{
             width: "100%",
@@ -156,28 +199,103 @@ const CustomNode = ({ data, size }) => {
   );
 };
 
+const data = {
+  nodes: [
+    { id: "node1", style: { x: 150, y: 100 } },
+    { id: "node2", style: { x: 250, y: 100 } },
+    { id: "node3", style: { x: 450, y: 100 } },
+  ],
+  edges: [
+    { source: "node1", target: "node2" },
+    { source: "node1", target: "node3" },
+    { source: "node2", target: "node3" },
+  ],
+};
+
+const generateFakeData = (node_count = 5) => {
+  const nodes = [];
+  const edges = [];
+
+  const radius = 400;
+
+  const n1 = v4();
+  nodes.push({ id: n1 });
+  const angleStep = (2 * Math.PI) / node_count;
+  range(0, node_count).map((_, index) => {
+    const n2 = v4();
+    const angle = index * angleStep;
+    const x = ((index % 2) + 1) * 800 * Math.cos(angle);
+    const y = ((index % 2) + 1) * 800 * Math.sin(angle);
+    nodes.push({ id: n2, style: { x, y } });
+    edges.push({ source: n1, target: n2 });
+
+    range(0, node_count).map((_, index) => {
+      const n3 = v4();
+      const angle = index * angleStep;
+      const x1 = 200 * Math.cos(angle);
+      const y1 = 200 * Math.sin(angle);
+      nodes.push({ id: n3, style: { x: x + x1, y: y + y1 } });
+      edges.push({ source: n2, target: n3 });
+    });
+  });
+
+  return { nodes, edges };
+};
+
 function AntG6() {
   const graphRef = useRef(null);
 
+  const fakeData = generateFakeData(50);
+
+  console.log(fakeData?.nodes?.length);
+
   useEffect(() => {
     register(ExtensionCategory.NODE, "react", ReactNode);
+
+    // Custom layoutni yaratish
+    // const customRadialLayout = (graph, node, radius) => {
+    //   const children = node.get("model").children || [];
+    //   const angleStep = (2 * Math.PI) / children.length; // Har bir child uchun burchak
+
+    //   children.forEach((childNode, index) => {
+    // const angle = index * angleStep;
+    // const x = radius * Math.cos(angle);
+    // const y = radius * Math.sin(angle);
+
+    //     const child = graph.findById(childNode.id); // Child node'ni olish
+    //     graph.updateItem(child, {
+    //       x: node.get("x") + x, // Child'larni doira shaklida joylashtirish
+    //       y: node.get("y") + y,
+    //     });
+
+    //     // Rekursiv ravishda child'larni ham doira shaklida joylashtirish
+    //     customRadialLayout(graph, child, radius * 0.7); // Radiusni kichikroq qilish
+    //   });
+    // };
+
     // Initialize the G6 graph
     const graph = new Graph({
       container: graphRef.current,
       width: graphRef?.current?.clientWidth,
       height: graphRef?.current?.clientHeight,
-      node: {
-        type: "react",
-        style: {
-          size: [40, 40],
-          component: (data) => <CustomNode data={data} size={[40, 40]} />,
-        },
-      },
+      autoResize: true,
+      autoFit: true,
+      // zoom: 0.5,
+      animation: false,
+      // node: {
+      //   type: "react",
+      //   style: {
+      //     size: [40, 40],
+      //     component: (data) => <CustomNode data={data} size={[40, 40]} />,
+      //   },
+      // },
+
       modes: {
         default: ["drag-canvas", "zoom-canvas", "drag-node"],
       },
       layout: {
-        type: "grid",
+        type: "compactBox", // Daraxt uchun bazaviy layout
+        direction: "LR", // Daraxtni chizish yo'nalishi (chapdan o'ngga)
       },
       defaultNode: {
         size: 30,
@@ -185,6 +303,7 @@ function AntG6() {
         style: {
           fill: "#9EC9FF",
           lineWidth: 3,
+          border: 4,
         },
       },
       defaultEdge: {
@@ -192,26 +311,9 @@ function AntG6() {
           stroke: "#e2e2e2",
         },
       },
-      data: {
-        nodes: [
-          {
-            id: "node-1",
-            data: {
-              name: "Module",
-              img: rasm,
-            },
-          },
-          {
-            id: "node-2",
-            data: {
-              name: "Process",
-              img: rasm,
-            },
-          },
-        ],
-        edges: [{ source: "node-1", target: "node-2" }],
-      },
+      data: fakeData,
       behaviors: ["zoom-canvas", "drag-canvas", "drag-element"],
+      transforms: ["process-parallel-edges"],
       plugins: [
         // {
         //   type: "tooltip",
@@ -268,6 +370,9 @@ function AntG6() {
 
     graph.render();
 
+    // const rootNode = graph.getNodeData(1311);
+    // customRadialLayout(graph, rootNode, 200); // Boshlang'ich radius
+
     return () => {
       graph.destroy();
     };
@@ -275,11 +380,11 @@ function AntG6() {
 
   return (
     <div style={{ display: "flex", width: "100%", height: "100dvh" }}>
-      <div style={{ width: "300px", height: "100%", background: "green" }} />
+      {/* <div style={{ width: "300px", height: "100%", background: "green" }} /> */}
       <div
         ref={graphRef}
         style={{
-          width: "calc(100% - 300px)",
+          width: "100%",
           height: "100%",
           border: "1px solid #ddd",
         }}
